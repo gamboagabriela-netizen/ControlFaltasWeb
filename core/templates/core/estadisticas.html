@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estadísticas</title>
+</head>
+<body>
+
+<h1>Estadísticas del Sistema</h1>
+
+<hr>
+
+<p><strong>Total de faltas:</strong> {{ total_faltas }}</p>
+
+<p>
+    <strong>Faltas pendientes:</strong>
+    {{ pendientes }}
+
+    <a href="{% url 'faltas_pendientes' %}">
+        <button>Ver pendientes</button>
+    </a>
+</p>
+
+<p><strong>Faltas aprobadas:</strong> {{ aprobadas }}</p>
+
+<p><strong>Faltas rechazadas:</strong> {{ rechazadas }}</p>
+
+<hr>
+
+<h2>Estudiante con más faltas</h2>
+
+{% if estudiante_mas_faltas %}
+    <p>
+        {{ estudiante_mas_faltas.nombre }}
+        {{ estudiante_mas_faltas.apellido }}
+        ({{ estudiante_mas_faltas.total }} faltas)
+    </p>
+{% else %}
+    <p>No hay estudiantes registrados.</p>
+{% endif %}
+
+<br>
+
+<a href="{% url 'dashboard' %}">
+    <button>Volver al Dashboard</button>
+</a>
+
+</body>
+</html>

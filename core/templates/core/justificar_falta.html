@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Justificar Falta</title>
+</head>
+<body>
+
+<h1>Justificar Falta</h1>
+
+<hr>
+
+<p><strong>Estudiante:</strong> {{ falta.estudiante }}</p>
+<p><strong>Fecha de la falta:</strong> {{ falta.fecha }}</p>
+<p><strong>Motivo:</strong> {{ falta.motivo }}</p>
+
+<hr>
+
+<form method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    <label>Fecha de la justificación:</label><br>
+    <input type="date" name="fecha_justificacion" required>
+
+    <br><br>
+
+    <label>Observaciones:</label><br>
+    <textarea name="observaciones" rows="5" cols="50"></textarea>
+
+    <br><br>
+
+    <label>Documento de soporte:</label><br>
+    <input type="file" name="documento">
+
+    <br><br>
+
+    <button type="submit">Guardar Justificación</button>
+</form>
+
+<br>
+
+<a href="{% url 'historial_estudiante' falta.estudiante.id %}">
+    <button>Cancelar</button>
+</a>
+
+</body>
+</html>

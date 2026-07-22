@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Falta</title>
+</head>
+<body>
+
+<h1>Registrar Falta</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Estudiante:</label><br>
+    <select name="estudiante">
+        {% for estudiante in estudiantes %}
+            <option value="{{ estudiante.id }}">
+                {{ estudiante.nombre }} {{ estudiante.apellido }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <label>Docente:</label><br>
+    <select name="docente">
+        {% for docente in docentes %}
+            <option value="{{ docente.id }}">
+                {{ docente.nombre }} {{ docente.apellido }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <label>Fecha:</label><br>
+    <input type="date" name="fecha">
+
+    <br><br>
+
+<label>Tipo de falta:</label><br>
+
+<select name="tipo" id="tipo" onchange="cambiarTipo()">
+    <option value="hora">Por hora</option>
+    <option value="dia">Todo el día</option>
+</select>
+
+<br><br>
+
+<div id="campos_hora">
+
+    <label>Materia:</label><br>
+    <input type="text" name="materia" id="materia">
+
+    <br><br>
+
+    <label>Hora:</label><br>
+    <input type="text" name="hora" id="hora">
+
+    <br><br>
+
+</div>
+
+    <button type="submit">Guardar Falta</button>
+
+</form>
+
+<br>
+
+<a href="{% url 'faltas' %}">
+    <button>Volver</button>
+</a>
+<script>
+
+function cambiarTipo(){
+
+ let tipo = document.getElementById("tipo").value;
+    let campos = document.getElementById("campos_hora");
+    let materia = document.getElementById("materia");
+    let hora = document.getElementById("hora");
+
+    if(tipo == "dia"){
+        campos.style.display = "none";
+        materia.value = "";
+        hora.value = "";
+    }else{
+        campos.style.display = "block";
+    }
+
+}
+
+cambiarTipo();
+
+</script>
+</body>
+</html>

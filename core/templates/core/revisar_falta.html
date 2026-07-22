@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Revisar Falta</title>
+</head>
+<body>
+
+<h1>Revisión de Falta</h1>
+
+<hr>
+
+<p><strong>Estudiante:</strong> {{ falta.estudiante }}</p>
+
+<p><strong>Docente:</strong> {{ falta.docente }}</p>
+
+<p><strong>Fecha:</strong> {{ falta.fecha }}</p>
+
+<p>
+    <strong>Tipo:</strong>
+
+    {% if falta.tipo == "hora" %}
+        🕒 Por hora
+    {% else %}
+        📅 Todo el día
+    {% endif %}
+</p>
+
+<p>
+<strong>Materia:</strong>
+
+{% if falta.tipo == "dia" %}
+—
+{% else %}
+{{ falta.materia }}
+{% endif %}
+</p>
+
+<p>
+<strong>Hora:</strong>
+
+{% if falta.tipo == "dia" %}
+—
+{% else %}
+{{ falta.hora }}
+{% endif %}
+</p>
+
+<p><strong>Motivo:</strong></p>
+
+<p>{{ falta.motivo }}</p>
+
+<hr>
+
+<h2>Estado actual</h2>
+
+<p>
+
+{% if falta.estado == "Pendiente" %}
+🟡 Pendiente
+{% elif falta.estado == "Aprobada" %}
+🟢 Aprobada
+{% else %}
+🔴 Rechazada
+{% endif %}
+
+</p>
+
+<hr>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<button type="submit" name="accion" value="aprobar">
+    ✅ Aprobar
+</button>
+
+<button type="submit" name="accion" value="rechazar">
+    ❌ Rechazar
+</button>
+
+</form>
+
+<br>
+
+<a href="{% url 'faltas_pendientes' %}">
+    <button>Volver</button>
+</a>
+
+</body>
+</html>

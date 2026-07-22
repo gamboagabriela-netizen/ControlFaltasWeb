@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Falta</title>
+</head>
+<body>
+
+<h1>Editar Falta</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Estudiante:</label><br>
+
+    <select name="estudiante">
+        {% for estudiante in estudiantes %}
+            <option value="{{ estudiante.id }}"
+            {% if estudiante.id == falta.estudiante.id %}selected{% endif %}>
+                {{ estudiante.nombre }} {{ estudiante.apellido }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <label>Docente:</label><br>
+
+    <select name="docente">
+        {% for docente in docentes %}
+            <option value="{{ docente.id }}"
+            {% if docente.id == falta.docente.id %}selected{% endif %}>
+                {{ docente.nombre }} {{ docente.apellido }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <label>Fecha:</label><br>
+    <input type="date" name="fecha" value="{{ falta.fecha|date:'Y-m-d' }}">
+
+    <br><br>
+
+    <label>Tipo de falta:</label><br>
+
+    <select name="tipo" id="tipo" onchange="cambiarTipo()">
+
+        <option value="hora"
+        {% if falta.tipo == "hora" %}selected{% endif %}>
+            Por hora
+        </option>
+
+        <option value="dia"
+        {% if falta.tipo == "dia" %}selected{% endif %}>
+            Todo el día
+        </option>
+
+    </select>
+
+    <br><br>
+
+    <div id="campos_hora">
+
+        <label>Materia:</label><br>
+        <input type="text" name="materia" id="materia" value="{{ falta.materia }}">
+
+        <br><br>
+
+        <label>Hora:</label><br>
+        <input type="text" name="hora" id="hora" value="{{ falta.hora }}">
+
+        <br><br>
+
+    </div>
+
+    <label>Estado:</label><br>
+
+    <select name="estado">
+
+        <option value="Pendiente"
+        {% if falta.estado == "Pendiente" %}selected{% endif %}>
+            Pendiente
+        </option>
+
+        <option value="Aprobada"
+        {% if falta.estado == "Aprobada" %}selected{% endif %}>
+            Aprobada
+        </option>
+
+        <option value="Rechazada"
+        {% if falta.estado == "Rechazada" %}selected{% endif %}>
+            Rechazada
+        </option>
+
+    </select>
+
+    <br><br>
+
+    <button type="submit">Guardar Cambios</button>
+
+</form>
+
+<br>
+
+<a href="{% url 'faltas' %}">
+    <button>Volver</button>
+</a>
+
+<script>
+
+function cambiarTipo(){
+
+    let tipo = document.getElementById("tipo").value;
+    let campos = document.getElementById("campos_hora");
+
+    if(tipo == "dia"){
+        campos.style.display = "none";
+    }else{
+        campos.style.display = "block";
+    }
+
+}
+
+cambiarTipo();
+
+</script>
+
+</body>
+</html>

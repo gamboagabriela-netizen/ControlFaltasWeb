@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Faltas Pendientes</title>
+</head>
+<body>
+
+<h1>Faltas Pendientes</h1>
+
+<hr>
+
+<table border="1">
+
+<tr>
+    <th>Estudiante</th>
+    <th>Docente</th>
+    <th>Fecha</th>
+    <th>Tipo</th>
+    <th>Materia</th>
+    <th>Hora</th>
+    <th>Acción</th>
+</tr>
+
+{% for falta in pendientes %}
+
+<tr>
+
+    <td>{{ falta.estudiante }}</td>
+
+    <td>{{ falta.docente }}</td>
+
+    <td>{{ falta.fecha }}</td>
+
+    <td>
+        {% if falta.tipo == "hora" %}
+            🕒 Por hora
+        {% else %}
+            📅 Todo el día
+        {% endif %}
+    </td>
+
+    <td>
+        {% if falta.tipo == "dia" %}
+            —
+        {% else %}
+            {{ falta.materia }}
+        {% endif %}
+    </td>
+
+    <td>
+        {% if falta.tipo == "dia" %}
+            —
+        {% else %}
+            {{ falta.hora }}
+        {% endif %}
+    </td>
+
+    <td>
+       <a href="{% url 'revisar_falta' falta.id %}">
+           <button>Revisar</button>
+       </a>
+    </td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+    <td colspan="7">
+        No hay faltas pendientes.
+    </td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="{% url 'estadisticas' %}">
+    <button>Volver a Estadísticas</button>
+</a>
+
+</body>
+</html>

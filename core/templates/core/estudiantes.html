@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estudiantes</title>
+</head>
+<body>
+
+<h1>Lista de Estudiantes</h1>
+
+<a href="{% url 'agregar_estudiante' %}">
+    <button>Agregar estudiante</button>
+</a>
+
+<hr>
+
+<table border="1">
+
+<tr>
+     <th>Documento</th>
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>Curso</th>
+    <th>Acciones</th>   
+</tr>
+
+{% for estudiante in estudiantes %}
+
+<tr>
+    <td>{{ estudiante.documento }}</td>
+    <td>{{ estudiante.nombre }}</td>
+    <td>{{ estudiante.apellido }}</td>
+    <td>{{ estudiante.curso }}</td>
+
+    <td>
+        <a href="{% url 'editar_estudiante' estudiante.id %}">
+            <button>Editar</button>
+        </a>
+
+        <a href="{% url 'eliminar_estudiante' estudiante.id %}">
+            <button>Eliminar</button>
+        </a>
+
+        <a href="{% url 'historial_estudiante' estudiante.id %}?origen=estudiantes">
+            <button>Historial</button>
+        </a>
+    </td>  
+</tr>
+
+{% empty %}
+
+<tr>
+    <td colspan="4">
+        No hay estudiantes registrados.
+    </td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="{% url 'dashboard' %}">
+    <button>Volver al Dashboard</button>
+</a>
+
+</body>
+</html>

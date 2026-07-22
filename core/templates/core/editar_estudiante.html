@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Estudiante</title>
+</head>
+<body>
+
+<h1>Editar Estudiante</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Documento</label><br>
+    <input type="text" name="documento" value="{{ estudiante.documento }}"><br><br>
+
+    <label>Nombre</label><br>
+    <input type="text" name="nombre" value="{{ estudiante.nombre }}"><br><br>
+
+    <label>Apellido</label><br>
+    <input type="text" name="apellido" value="{{ estudiante.apellido }}"><br><br>
+
+    <label>Curso</label><br>
+    <input type="text" name="curso" value="{{ estudiante.curso }}"><br><br>
+
+    <button type="submit">Guardar cambios</button>
+
+</form>
+
+<br>
+
+<a href="{% url 'estudiantes' %}">
+    <button>Volver</button>
+</a>
+
+</body>
+</html>

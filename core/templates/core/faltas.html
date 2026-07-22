@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Faltas</title>
+</head>
+<body>
+
+<h1>Lista de Faltas</h1>
+
+<a href="{% url 'agregar_falta' %}">
+    <button>Registrar Falta</button>
+</a>
+
+<hr>
+
+<table border="1">
+
+    <tr>
+        <th>Estudiante</th>
+        <th>Docente</th>
+        <th>Tipo</th>
+        <th>Fecha</th>
+        <th>Materia</th>
+        <th>Hora</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+    </tr>
+
+{% for falta in faltas %}
+
+    <tr>
+
+        <td>{{ falta.estudiante }}</td>
+
+        <td>{{ falta.docente }}</td>
+
+        <td>
+            {% if falta.tipo == "hora" %}
+                🕒 Por hora
+            {% else %}
+                📅 Todo el día
+            {% endif %}
+        </td>
+
+        <td>{{ falta.fecha }}</td>
+
+        <td>
+            {% if falta.tipo == "dia" %}
+                —
+            {% else %}
+                {{ falta.materia }}
+            {% endif %}
+        </td>
+
+        <td>
+            {% if falta.tipo == "dia" %}
+                —
+            {% else %}
+                {{ falta.hora }}
+            {% endif %}
+        </td>
+
+        <td>
+            {% if falta.estado == "Pendiente" %}
+                 🟡 Pendiente
+            {% elif falta.estado == "Aprobada" %}
+                 🟢 Aprobada
+            {% else %}
+                 🔴 Rechazada
+            {% endif %}
+        </td>
+
+        <td>
+            
+            <a href="{% url 'historial_estudiante' falta.estudiante.id %}?origen=faltas">
+                <button>📖 Historial</button>
+            </a>
+
+            <a href="{% url 'editar_falta' falta.id %}">
+                <button>✏️ Editar</button>
+            </a>
+
+            <a href="{% url 'eliminar_falta' falta.id %}">
+                <button>🗑️ Eliminar</button>
+            </a>
+
+        </td>
+
+    </tr>
+
+{% empty %}
+
+<tr>
+    <td colspan="8">
+        No hay faltas registradas.
+    </td>
+</tr>
+
+{% endfor %}
+
+</table>
+  
+
+<a href="{% url 'dashboard' %}">
+    <button>Volver al Dashboard</button>
+</a>
+
+
+</body>
+</html>

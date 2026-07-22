@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Docente</title>
+</head>
+<body>
+
+<h1>Editar Docente</h1>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    Documento:<br>
+    <input type="text" name="documento" value="{{ docente.documento }}"><br><br>
+
+    Nombre:<br>
+    <input type="text" name="nombre" value="{{ docente.nombre }}"><br><br>
+
+    Apellido:<br>
+    <input type="text" name="apellido" value="{{ docente.apellido }}"><br><br>
+
+    <button type="submit">Guardar cambios</button>
+
+</form>
+
+</body>
+</html>

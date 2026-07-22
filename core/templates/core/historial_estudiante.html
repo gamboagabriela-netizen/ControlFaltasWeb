@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial del Estudiante</title>
+</head>
+<body>
+
+<h1>Historial de {{ estudiante.nombre }} {{ estudiante.apellido }}</h1>
+
+<p><strong>Documento:</strong> {{ estudiante.documento }}</p>
+<p><strong>Curso:</strong> {{ estudiante.curso }}</p>
+
+<hr>
+
+<table border="1">
+
+<tr>
+    <th>Fecha</th>
+    <th>Tipo</th>
+    <th>Materia</th>
+    <th>Hora</th>
+    <th>Estado</th>
+    <th>Acciones</th>
+</tr>
+
+{% for falta in faltas %}
+
+<tr>
+
+    <td>{{ falta.fecha }}</td>
+
+    <td>
+        {% if falta.tipo == "hora" %}
+            🕒 Por hora
+        {% else %}
+            📅 Todo el día
+        {% endif %}
+    </td>
+
+    <td>
+        {% if falta.tipo == "dia" %}
+            —
+        {% else %}
+            {{ falta.materia }}
+        {% endif %}
+    </td>
+
+    <td>
+        {% if falta.tipo == "dia" %}
+            —
+        {% else %}
+            {{ falta.hora }}
+        {% endif %}
+    </td>
+
+    <td>
+        {% if falta.estado == "Pendiente" %}
+            🟡 Pendiente
+        {% elif falta.estado == "Aprobada" %}
+            🟢 Aprobada
+        {% else %}
+            🔴 Rechazada
+        {% endif %}
+    </td>
+
+    <td>
+
+       {% if falta.estado == "Pendiente" %}
+
+           <a href="{% url 'justificar_falta' falta.id %}">
+            <button>Justificar</button>
+           </a>
+
+       {% else %}
+
+           —
+
+       {% endif %}
+
+    </td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+    <td colspan="5">
+        Este estudiante no tiene faltas registradas.
+    </td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+{% if origen == "faltas" %}
+
+<a href="{% url 'faltas' %}">
+    <button>Volver a Faltas</button>
+</a>
+
+{% else %}
+
+<a href="{% url 'estudiantes' %}">
+    <button>Volver a Estudiantes</button>
+</a>
+
+{% endif %}
+
+</body>
+</html>

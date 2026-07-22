@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Docentes</title>
+</head>
+<body>
+
+<h1>Lista de Docentes</h1>
+
+<a href="{% url 'agregar_docente' %}">
+    <button>Agregar docente</button>
+</a>
+
+<hr>
+
+<table border="1">
+
+<tr>
+    <th>Documento</th>
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>Acciones</th>
+</tr>
+
+{% for docente in docentes %}
+
+<tr>
+    <td>{{ docente.documento }}</td>
+    <td>{{ docente.nombre }}</td>
+    <td>{{ docente.apellido }}</td>
+
+    <td>
+        <a href="{% url 'editar_docente' docente.id %}">
+            <button>Editar</button>
+        </a>
+
+        <a href="{% url 'eliminar_docente' docente.id %}">
+            <button>Eliminar</button>
+        </a>
+    </td>
+</tr>
+
+{% empty %}
+
+<tr>
+    <td colspan="4">
+        No hay docentes registrados.
+    </td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="{% url 'dashboard' %}">
+    <button>Volver al Dashboard</button>
+</a>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Control de Faltas</title>
+</head>
+<body>
+
+<h1>Sistema de Control de Faltas</h1>
+
+<hr>
+
+<h2>Menú Principal</h2>
+
+<ul>
+
+    <li>
+        <a href="{% url 'inicio' %}">🏠 Inicio</a>
+    </li>
+
+    <li>
+        <a href="{% url 'estudiantes' %}">👨‍🎓 Estudiantes</a>
+    </li>
+
+    <li>
+        <a href="{% url 'docentes' %}">👨‍🏫 Docentes</a>
+    </li>
+
+    <li>
+        <a href="{% url 'faltas' %}">📋 Faltas</a>
+    </li>
+
+    <li>
+        <a href="{% url 'estadisticas' %}">📊 Estadísticas</a>
+    </li>
+
+    <li>
+        <a href="{% url 'inicio' %}">🚪 Cerrar sesión</a>
+    </li>
+
+</ul>
+
+<hr>
+
+<h2>Resumen del Sistema</h2>
+
+<p>Desde este panel puedes acceder a todas las funciones del sistema.</p>
+
+<ul>
+    <li>Gestionar estudiantes.</li>
+    <li>Gestionar docentes.</li>
+    <li>Registrar faltas.</li>
+    <li>Consultar el historial de los estudiantes.</li>
+    <li>Visualizar estadísticas.</li>
+</ul>
+
+</body>
+</html>

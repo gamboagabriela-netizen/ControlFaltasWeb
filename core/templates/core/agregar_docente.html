@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Docente</title>
+</head>
+<body>
+
+<h1>Agregar Docente</h1>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    Documento:<br>
+    <input type="text" name="documento"><br><br>
+
+    Nombre:<br>
+    <input type="text" name="nombre"><br><br>
+
+    Apellido:<br>
+    <input type="text" name="apellido"><br><br>
+
+    <button type="submit">Guardar</button>
+
+</form>
+
+</body>
+</html>
